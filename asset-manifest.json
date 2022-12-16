@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/PyHack-2022/static/css/main.1542bfce.css",
-    "main.js": "/PyHack-2022/static/js/main.533e692e.js",
+    "main.css": "/PyHack-2022/static/css/main.cce3cd87.css",
+    "main.js": "/PyHack-2022/static/js/main.dae84552.js",
     "index.html": "/PyHack-2022/index.html",
-    "main.1542bfce.css.map": "/PyHack-2022/static/css/main.1542bfce.css.map",
-    "main.533e692e.js.map": "/PyHack-2022/static/js/main.533e692e.js.map"
+    "main.cce3cd87.css.map": "/PyHack-2022/static/css/main.cce3cd87.css.map",
+    "main.dae84552.js.map": "/PyHack-2022/static/js/main.dae84552.js.map"
   },
   "entrypoints": [
-    "static/css/main.1542bfce.css",
-    "static/js/main.533e692e.js"
+    "static/css/main.cce3cd87.css",
+    "static/js/main.dae84552.js"
   ]
 }
