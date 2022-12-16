@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { styled, Box, TextField, Button,Typography } from "@mui/material";
+import { styled, Box, TextField, Button, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { DataContext } from "../contextAPI/context";
 import { useEffect } from "react";
+import { fields } from "../constants/constant";
 
 const Component = styled(Box)`
-  height: 100vh;
+  min-height: 100vh;
   background: url(https://www.onlygfx.com/wp-content/uploads/2021/04/white-triangle-pattern-seamless-background-6.jpg)
     no-repeat;
   background-size: cover;
@@ -21,7 +22,7 @@ const Contain = styled(Box)`
   background-color: #EFEFEF;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
   border-radius: 40px;
-  width: 500px;
+  max-width: 1000px;
   padding: 50px;
 `;
 
@@ -37,133 +38,185 @@ const ContinueButton = styled(Button)`
   }
 `;
 
+const TableBox = styled('div')({
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+});
+
+const Text = styled(TextField)`
+  width : 300px;
+  margin: 10px;
+  flex-grow: 1;
+  text-align:center;
+`;
+
 const sex = [
   {
-    value: 'Choose',
-    label: 'Choose'
+    value: '',
+    label: ''
   },
   {
     value: "Male",
-    label: "M",
+    label: "Male",
   },
   {
     value: "Female",
-    label: "F",
+    label: "Female",
   },
 ];
 
-const Main = ({setCheck}) => {
+const decesion = [
+  {
+    value: '',
+    label: '',
+  },
+  {
+    value: 'YES',
+    label: 'TRUE'
+  },
+  {
+    value: 'NO',
+    label: 'FALSE'
+  },
+  {
+    value: 'NOT SURE',
+    label: 'NOT SURE'
+  },
+]
 
-    const [info, setInfo] = useState({});
+const Main = ({ setCheck }) => {
 
-    const {data,setData} = useContext(DataContext);
+  const [info, setInfo] = useState({});
 
-    useEffect(()=>{
-      setCheck(false);
-    },[]);
+  const { data, setData } = useContext(DataContext);
+
+  useEffect(() => {
+    setCheck(false);
+  }, []);
 
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    setInfo({...info, [e.target.name]:e.target.value});
+    let name = e.target.name
+    let value = e.target.value
+    if(name === 'NOT SURE')
+      value= "";
+    setInfo({ ...info, [name]: value });
   }
 
   const continueClick = () => {
-    if(info?.sex && info?.age){
-        setData({...data,...info});
-        setCheck(true);
-        navigate("/audio-upload");
+    console.log(info);
+    if (info?.g && info?.a && info?.l_c && info?.l_l) {
+      setData({ ...data, ...info });
+      setCheck(true);
+      navigate("/audio-upload");
     }
-    else{
-        alert("Enter all the required details please")
+    else {
+      alert("Enter all the required details please")
     }
   };
 
   return (
     <Component>
       <Contain>
-    <Typography variant="h6" style={{paddingBottom:'10px'}}>Fill in the information below</Typography>
+        <Typography variant="h6" style={{ paddingBottom: '10px' }}>Fill in the information below</Typography>
 
         <Box
           component="form"
           sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
+            "& .MuiText-root": { m: 1, width: "25ch" },
           }}
           noValidate
           autoComplete="off"
         >
-          <div>
-            <TextField
+          <TableBox>
+            <Text
               id="outlined-required"
               label="Name"
               name="name"
               placeholder="eg. Adrian"
               onChange={onValueChange}
             />
-            <TextField
+            <Text
               required
               id="outlined-password-input"
               label="Age"
-              name="age"
+              name="a"
               type="number"
               placeholder="eg. 23"
               onChange={onValueChange}
             />
-           <TextField
-           required
-          id="outlined-select-currency-native"
-          select
-          label="Sex"
-          name="sex"
-          defaultValue=""
-          placeholder="eg. M"
-          SelectProps={{
-            native: true,
-          }}
-          onChange={onValueChange}
-        >
-          {sex.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-            <TextField
+            <Text
               required
-              id="outlined-required"
-              label="anonymous"
-              placeholder="eg. anonymous"
+              id="outlined-select-currency-native"
+              select
+              label="Sex"
+              name="g"
+              SelectProps={{
+                native: true,
+              }}
+              onChange={onValueChange}
+            >
+              {sex.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Text>
+            <Text
+              required
+              id="outlined-password-input"
+              label="Covid Status"
+              name="covid_status"
+              placeholder="eg. healthy/not healthy"
               onChange={onValueChange}
             />
-            <TextField
+            <Text
               required
-              id="outlined-required"
-              label="anonymous"
-              placeholder="eg. anonymous"
+              id="outlined-password-input"
+              label="City"
+              name="l_l"
+              placeholder="eg. Kharagpur"
               onChange={onValueChange}
             />
-            <TextField
+            <Text
               required
-              id="outlined-required"
-              label="anonymous"
-              placeholder="eg. anonymous"
+              id="outlined-password-input"
+              label="State/Province"
+              name="l_s"
+              placeholder="eg. healthy/not healthy"
               onChange={onValueChange}
             />
-            <TextField
+            <Text
               required
-              id="outlined-required"
-              label="anonymous"
-              placeholder="eg. anonymous"
+              id="outlined-password-input"
+              label="Country"
+              name="l_c"
+              placeholder="eg. India"
               onChange={onValueChange}
             />
-            <TextField
+            {fields.map((field)=>(
+              <Text
               required
-              id="outlined-required"
-              label="anonymous"
-              placeholder="eg. anonymous"
+              id="outlined-select-currency-native"
+              select
+              label={field.label}
+              name={field.name}
+              SelectProps={{
+                native: true,
+              }}
               onChange={onValueChange}
-            />
-          </div>
+            >
+              {decesion.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Text>
+            ))}
+            
+          </TableBox>
         </Box>
         <ContinueButton variant="contained" onClick={continueClick}>
           Click to continue

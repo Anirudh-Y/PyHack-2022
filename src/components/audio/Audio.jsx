@@ -5,7 +5,7 @@ import { DataContext } from "../contextAPI/context";
 import "./Audio.css";
 
 const Component = styled(Box)`
-  height: 100vh;
+  min-height: 100vh;
   background: url(https://www.onlygfx.com/wp-content/uploads/2021/04/white-triangle-pattern-seamless-background-6.jpg)
     no-repeat;
   background-size: cover;
@@ -42,49 +42,53 @@ const ContinueButton = styled(Button)`
 `;
 
 const Audio = () => {
-    const { data } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
-    const [selectedFile, setSelectedFile] = useState({});
-    const [result, setResult] = useState(false);
+  const [selectedFile, setSelectedFile] = useState({});
+  const [result, setResult] = useState(false);
 
-    const onFileChange = (e) => {
-        setSelectedFile({ ...selectedFile, [e.target.name]: e.target.files[0] });
-        console.log(selectedFile);
-    };
+  const onFileChange = (e) => {
+    setSelectedFile({ ...selectedFile, [e.target.name]: e.target.files[0] });
+    console.log(selectedFile);
+  };
 
-    const onUpload = () => {
-        setResult(true);
-    }
+  const onUpload = () => {
+    setResult(true);
+  }
 
-    return (
-        <Component>
-            <Contain>
-                {!result 
-                ? 
-            <>                <Typography style={{ marginBottom: "20px" }} variant="h6">
-            Upload your audio file here
-        </Typography>
-        <div className="file_upload">
-            <Typo variant="p">COUGH</Typo>
-            <input type="file" name="cough" onChange={onFileChange} />
-        </div>
-        <div className="file_upload">
-            <Typo variant="p">BREATHING</Typo>
-            <input type="file" name="breathing" onChange={onFileChange} />
-        </div>
-        <div className="file_upload">
-            <Typo variant="p">COUNTING</Typo>
-            <input type="file" name="counting" onChange={onFileChange} />
-        </div>
-        <ContinueButton variant="contained" onClick={onUpload}>Upload</ContinueButton></> 
-        :
-        <><Typography variant="h6">Click below to check result {data.sex === 'F' ?  data?.name && `Ms\Mrs ${data.name}` :  data?.name && `Mr ${data.name}`}</Typography>
-        <ContinueButton variant="contained">Result</ContinueButton></> 
+  return (
+    <Component>
+      <Contain>
+        {!result
+          ?
+          <>
+            <Typography style={{ marginBottom: "20px" }} variant="h6">
+              Upload your audio file here
+            </Typography>
+            <div className="file_upload">
+              <Typo variant="p">COUGH</Typo>
+              <input type="file" name="cough" onChange={onFileChange} />
+            </div>
+            <div className="file_upload">
+              <Typo variant="p">BREATHING</Typo>
+              <input type="file" name="breathing" onChange={onFileChange} />
+            </div>
+            <div className="file_upload">
+              <Typo variant="p">COUNTING</Typo>
+              <input type="file" name="counting" onChange={onFileChange} />
+            </div>
+            <ContinueButton variant="contained" onClick={onUpload}>Upload</ContinueButton>
+          </>
+          :
+          <>
+            <Typography variant="h6">Click below to check result {data.sex === 'F' ? data?.name && `Ms\Mrs ${data.name}` : data?.name && `Mr ${data.name}`}</Typography>
+            <ContinueButton variant="contained">Result</ContinueButton>
+          </>
         }
 
-            </Contain>
-        </Component>
-    );
+      </Contain>
+    </Component>
+  );
 };
 
 export default Audio;
