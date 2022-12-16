@@ -72,11 +72,30 @@ const decesion = [
     label: '',
   },
   {
-    value: 'YES',
+    value: 'TRUE',
     label: 'TRUE'
   },
   {
-    value: 'NO',
+    value: 'FALSE',
+    label: 'FALSE'
+  },
+  {
+    value: 'NOT SURE',
+    label: 'NOT SURE'
+  },
+]
+
+const decide = [
+  {
+    value: '',
+    label: '',
+  },
+  {
+    value: 'n',
+    label: 'TRUE'
+  },
+  {
+    value: 'y',
     label: 'FALSE'
   },
   {
@@ -100,14 +119,13 @@ const Main = ({ setCheck }) => {
   const onValueChange = (e) => {
     let name = e.target.name
     let value = e.target.value
-    if(name === 'NOT SURE')
-      value= "";
+    if (name === 'NOT SURE')
+      value = "";
     setInfo({ ...info, [name]: value });
   }
 
   const continueClick = () => {
-    console.log(info);
-    if (info?.g && info?.a && info?.l_c && info?.l_l) {
+    if (info?.g && info?.a && info?.vacc && info?.cough && info?.fever && info?.diabetes && info?.muscle_pain && info?.ftg) {
       setData({ ...data, ...info });
       setCheck(true);
       navigate("/audio-upload");
@@ -136,7 +154,6 @@ const Main = ({ setCheck }) => {
               label="Name"
               name="name"
               placeholder="eg. Adrian"
-              onChange={onValueChange}
             />
             <Text
               required
@@ -164,58 +181,32 @@ const Main = ({ setCheck }) => {
                 </option>
               ))}
             </Text>
-            <Text
-              required
-              id="outlined-password-input"
-              label="Covid Status"
-              name="covid_status"
-              placeholder="eg. healthy/not healthy"
-              onChange={onValueChange}
-            />
-            <Text
-              required
-              id="outlined-password-input"
-              label="City"
-              name="l_l"
-              placeholder="eg. Kharagpur"
-              onChange={onValueChange}
-            />
-            <Text
-              required
-              id="outlined-password-input"
-              label="State/Province"
-              name="l_s"
-              placeholder="eg. healthy/not healthy"
-              onChange={onValueChange}
-            />
-            <Text
-              required
-              id="outlined-password-input"
-              label="Country"
-              name="l_c"
-              placeholder="eg. India"
-              onChange={onValueChange}
-            />
-            {fields.map((field)=>(
+            {fields.map((field) => (
               <Text
-              required
-              id="outlined-select-currency-native"
-              select
-              label={field.label}
-              name={field.name}
-              SelectProps={{
-                native: true,
-              }}
-              onChange={onValueChange}
-            >
-              {decesion.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </Text>
+                required
+                id="outlined-select-currency-native"
+                select
+                label={field.label}
+                name={field.name}
+                SelectProps={{
+                  native: true,
+                }}
+                onChange={onValueChange}
+              >
+                {field.label === 'Vaccine' ? decide.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                )) 
+                :
+                decesion.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Text>
             ))}
-            
+
           </TableBox>
         </Box>
         <ContinueButton variant="contained" onClick={continueClick}>

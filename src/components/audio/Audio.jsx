@@ -5,7 +5,7 @@ import { DataContext } from "../contextAPI/context";
 import "./Audio.css";
 
 const Component = styled(Box)`
-  min-height: 100vh;
+  height: 100vh;
   background: url(https://www.onlygfx.com/wp-content/uploads/2021/04/white-triangle-pattern-seamless-background-6.jpg)
     no-repeat;
   background-size: cover;
@@ -53,7 +53,10 @@ const Audio = () => {
   };
 
   const onUpload = () => {
-    setResult(true);
+    if (selectedFile?.breathing && selectedFile?.cough && selectedFile?.counting)
+      setResult(true);
+    else
+      alert('Please upload all the files');
   }
 
   return (
@@ -81,7 +84,7 @@ const Audio = () => {
           </>
           :
           <>
-            <Typography variant="h6">Click below to check result {data.sex === 'F' ? data?.name && `Ms\Mrs ${data.name}` : data?.name && `Mr ${data.name}`}</Typography>
+            <Typography variant="h6">Click below to check result</Typography>
             <ContinueButton variant="contained">Result</ContinueButton>
           </>
         }
