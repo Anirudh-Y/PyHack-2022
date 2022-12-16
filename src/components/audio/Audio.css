@@ -1,0 +1,9 @@
+.file_upload{
+    display: flex;
+    text-align: center;
+
+}
+
+input{
+    margin: 10px 0;
+}
